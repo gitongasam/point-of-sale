@@ -14,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+
 public class Order {
 
     @Id
@@ -26,12 +27,12 @@ public class Order {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private OrderStatus status = OrderStatus.PENDING;
-
-    @Column(length = 15)
-    private String customerPhone;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -41,8 +42,19 @@ public class Order {
     @Column(nullable = false)
     private LocalDateTime deletedAt = LocalDateTime.now();
 
+
+    public Order(String productName, BigDecimal amount, Integer quantity) {
+        this.productName = productName;
+        this.amount = amount;
+        this.quantity = quantity;
+        this.status = OrderStatus.PENDING;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }
