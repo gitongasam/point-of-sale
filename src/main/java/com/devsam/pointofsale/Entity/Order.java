@@ -39,8 +39,6 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
-    @Column(nullable = false)
-    private LocalDateTime deletedAt = LocalDateTime.now();
 
 
     public Order(String productName, BigDecimal amount, Integer quantity) {
